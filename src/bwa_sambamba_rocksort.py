@@ -194,7 +194,7 @@ def main(reads_1, reference, reference_index, read_group_sample, loglevel,
 
     for index, reads in enumerate(reads_to_align):
         aligned_bam = "tmp/alignment/{0}.{1}".format(read_group_sample, index)
-        alignment_cmd = "{0} {1} | {2} | {3} -o {4}".format(
+        alignment_cmd = "{0} {1} | {2} | {3} {4}".format(
             bwa_mem_cmd, reads, sambamba_view_cmd, sambamba_sort_cmd,
             aligned_bam)
 
