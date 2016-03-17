@@ -220,7 +220,7 @@ def main(reads_1, reference, reference_index, read_group_sample, loglevel,
         sambamba_merge = dx_exec.execute_command(sambamba_merge_cmd)
         dx_exec.check_execution_syscode(sambamba_merge, "Merge BAM")
 
-        sorted_bam = "tmp/sorted/sorted.{0}.bam".format(read_group_sample)
+        sorted_bam = "tmp/sorted/sorted.{0}".format(read_group_sample)
         sambamba_sort_merged_cmd = "sambamba sort {0} -t {1} -m {2}M {3} -o {4}".format(
             advanced_sambamba_sort_options, cpus, max_ram/cpus, merged_bam,
             sorted_bam)
