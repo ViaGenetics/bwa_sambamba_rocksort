@@ -235,7 +235,7 @@ def main(reads_1, reference, reference_index, read_group_sample, loglevel,
 
     sorted_bam = bam_files[0]
     markdup_bam = "out/output_markdups_bams/{0}.markdups.bam".format(read_group_sample)
-    sambamba_markdup_cmd = "sambamba markdup {0} -p -t {1} {2} {3}".format(
+    sambamba_markdup_cmd = "sambamba markdup {0} -p -t {1} {2}.bam {3}".format(
         advanced_sambamba_markdups_options, cpus, sorted_bam, markdup_bam)
     sambamba_markdup = dx_exec.execute_command(sambamba_markdup_cmd, debug=True)
     dx_exec.check_execution_syscode(sambamba_markdup, "Mark Duplicates")
