@@ -193,7 +193,7 @@ def main(reads_1, reference, reference_index, read_group_sample, loglevel,
     bam_files = []
 
     for index, reads in enumerate(reads_to_align):
-        aligned_bam = "tmp/alignment/{0}.{1}.bam".format(read_group_sample, index)
+        aligned_bam = "tmp/alignment/{0}.{1}".format(read_group_sample, index)
         alignment_cmd = "{0} {1} | {2} | {3} -o {4}".format(
             bwa_mem_cmd, reads, sambamba_view_cmd, sambamba_sort_cmd,
             aligned_bam)
@@ -221,9 +221,9 @@ def main(reads_1, reference, reference_index, read_group_sample, loglevel,
         dx_exec.check_execution_syscode(sambamba_merge, "Merge BAM")
 
         sorted_bam = "tmp/sorted/sorted.{0}".format(read_group_sample)
-        sambamba_sort_merged_cmd = "sambamba sort {0} -t {1} -m {2}M {3} -o {4}".format(
-            advanced_sambamba_sort_options, cpus, max_ram/cpus, merged_bam,
-            sorted_bam)
+        sambamba_sort_merged_cmd = "dx-samtools rocksort {0} -@ {1} -m {2}M {3} {4}".format(
+            advanced_samtools_rocksort_options, cpus, max_ram/cpus,
+            merged_bam, sorted_bam)
         sambamba_sort_merge = dx_exec.execute_command(sambamba_sort_merged_cmd)
         dx_exec.check_execution_syscode(sambamba_sort_merge, "Sort merged BAM")
 
